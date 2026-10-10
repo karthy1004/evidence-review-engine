@@ -1,0 +1,126 @@
+# ILLUSTRATIVE RULEBOOK — for demonstration only.
+#
+# Categories, weights, questions and thresholds below were invented for this
+# open-source demo. They are NOT an official standard (not OECD, LBMA, RMI or
+# any regulator's), NOT any employer's methodology, and passing them implies no
+# certification or legal compliance. Swap in your own rulebook file to use the
+# engine for real work.
+
+id: illustrative-responsible-sourcing
+version: "1.0.0"
+title: Illustrative responsible-sourcing pre-assessment
+evidence_max_age_days: 730   # evidence older than this is treated as stale
+
+bands:
+  go_min: 75        # score >= 75 and no caps applied  -> GO
+  review_min: 50    # 50 <= score < 75, or any cap      -> REVIEW
+                    # score < 50, or any hard stop       -> NO_GO
+
+categories:
+  - id: origin
+    name: Origin & traceability
+    weight: 30
+  - id: legal
+    name: Legal & licensing
+    weight: 20
+  - id: people
+    name: Human rights & labour
+    weight: 25
+  - id: environment
+    name: Environment
+    weight: 15
+  - id: governance
+    name: Governance & financial crime
+    weight: 10
+
+questions:
+  # --- origin (30) -------------------------------------------------------
+  - id: ORG-1
+    category: origin
+    text: Is the mine or recycled-source of origin disclosed for every lot?
+    points: 12
+    evidence: [chain_of_custody]
+  - id: ORG-2
+    category: origin
+    text: Is there a documented chain of custody from origin to the current holder?
+    points: 10
+    evidence: [chain_of_custody]
+  - id: ORG-3
+    category: origin
+    text: Are shipment weights reconciled between export and import documents?
+    points: 8
+    evidence: [export_permit]
+
+  # --- legal (20) --------------------------------------------------------
+  - id: LEG-1
+    category: legal
+    text: Does the supplier hold a valid mining or trading licence?
+    points: 12
+    evidence: [mining_licence]
+  - id: LEG-2
+    category: legal
+    text: Are export permits in place for the most recent shipments?
+    points: 8
+    evidence: [export_permit]
+
+  # --- people (25) -------------------------------------------------------
+  - id: PPL-1
+    category: people
+    text: Has an independent social audit been completed in the last 24 months?
+    points: 12
+    evidence: [audit_report]
+  - id: PPL-2
+    category: people
+    text: Is there a grievance mechanism available to workers and communities?
+    points: 6
+    evidence: []
+  - id: PPL-3
+    category: people
+    text: Is the supplier free of unremediated child or forced labour findings?
+    points: 7
+    evidence: [audit_report]
+
+  # --- environment (15) ---------------------------------------------------
+  - id: ENV-1
+    category: environment
+    text: Is mercury-free processing used, or is mercury use under a reduction plan?
+    points: 8
+    evidence: [audit_report]
+  - id: ENV-2
+    category: environment
+    text: Is there a current environmental permit for the site?
+    points: 7
+    evidence: [environmental_permit]
+
+  # --- governance (10) ----------------------------------------------------
+  - id: GOV-1
+    category: governance
+    text: Have owners and directors been screened against sanctions lists?
+    points: 6
+    evidence: [sanctions_screening]
+  - id: GOV-2
+    category: governance
+    text: Does the supplier have a written anti-bribery and AML policy?
+    points: 4
+    evidence: []
+
+# Red flags are evaluated independently of the score.
+#   hard_stop -> decision is NO_GO regardless of score; a reviewer cannot approve.
+#   cap       -> decision can be at best REVIEW regardless of score.
+red_flags:
+  - id: RF-SANCTIONS
+    when: { fact: sanctions_match, equals: true }
+    effect: hard_stop
+    reason: An owner or director matches a sanctions list.
+  - id: RF-CHILD-LABOUR
+    when: { question: PPL-3, answer: false }
+    effect: hard_stop
+    reason: Unremediated child or forced labour finding.
+  - id: RF-CONFLICT-AREA
+    when: { fact: conflict_affected_area, equals: true }
+    effect: cap
+    reason: Origin is in a conflict-affected or high-risk area; enhanced due diligence required.
+  - id: RF-ORIGIN-UNKNOWN
+    when: { question: ORG-1, answer: false }
+    effect: cap
+    reason: Origin is not disclosed for every lot.

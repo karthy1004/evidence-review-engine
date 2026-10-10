@@ -1,0 +1,15 @@
+{
+  "supplier": {"id": "SUP-002", "legal_name": "Sierra Metal Traders", "country": "XB", "role": "trader"},
+  "as_of": "2026-10-01",
+  "answers": {"ORG-1": true, "ORG-2": true, "ORG-3": true, "LEG-1": true, "LEG-2": true,
+              "PPL-1": true, "PPL-2": true, "PPL-3": true, "ENV-1": true, "ENV-2": true,
+              "GOV-1": true, "GOV-2": false},
+  "facts": {"sanctions_match": false, "conflict_affected_area": true},
+  "documents": [
+    {"id": "D-201", "type": "chain_of_custody", "holder_name": "Sierra Metal Traders", "issued_on": "2026-02-11", "issuer": "Example Assurance Co"},
+    {"id": "D-202", "type": "export_permit", "holder_name": "Sierra Metal Traders", "issued_on": "2025-05-01", "expires_on": "2026-04-30", "issuer": "Customs Authority XB"},
+    {"id": "D-203", "type": "mining_licence", "holder_name": "Sierra Metal Traders", "issued_on": "2024-12-01", "expires_on": "2027-11-30", "issuer": "Mines Directorate XB"},
+    {"id": "D-204", "type": "audit_report", "holder_name": "Sierra Metal Traders", "issued_on": "2025-08-08", "issuer": "Example Social Audits"},
+    {"id": "D-206", "type": "sanctions_screening", "holder_name": "Sierra Metal Traders", "issued_on": "2026-09-01", "issuer": "Example Screening Service"}
+  ]
+}

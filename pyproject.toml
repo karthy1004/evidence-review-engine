@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "evidence-review-engine"
+version = "0.1.0"
+description = "Explainable due-diligence scoring for supply-chain participants: versioned rules, evidence checks, reviewer workflow, tamper-evident audit log, and an optional validated LLM extraction step."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Karthik Bhumireddy" }]
+dependencies = [
+  "pydantic>=2.9",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+llm = ["anthropic>=1.0"]
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6", "mypy>=1.11", "types-PyYAML"]
+
+[project.scripts]
+evidence-review = "evidence_review.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/evidence_review"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.coverage.run]
+branch = true
+source = ["evidence_review"]
+omit = ["src/evidence_review/extraction/claude.py"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+mypy_path = "src"
+packages = ["evidence_review"]
+
+[[tool.mypy.overrides]]
+module = ["anthropic", "anthropic.*"]
+ignore_missing_imports = true

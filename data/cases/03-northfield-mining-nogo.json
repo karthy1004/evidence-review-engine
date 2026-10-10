@@ -1,0 +1,16 @@
+{
+  "supplier": {"id": "SUP-003", "legal_name": "Northfield Mining SA", "country": "XC", "role": "mine"},
+  "as_of": "2026-10-01",
+  "answers": {"ORG-1": true, "ORG-2": true, "ORG-3": true, "LEG-1": true, "LEG-2": true,
+              "PPL-1": true, "PPL-2": true, "PPL-3": true, "ENV-1": true, "ENV-2": true,
+              "GOV-1": true, "GOV-2": true},
+  "facts": {"sanctions_match": true, "conflict_affected_area": false},
+  "documents": [
+    {"id": "D-301", "type": "chain_of_custody", "holder_name": "Northfield Mining SA", "issued_on": "2026-01-15", "issuer": "Example Assurance Co"},
+    {"id": "D-302", "type": "export_permit", "holder_name": "Northfield Mining SA", "issued_on": "2026-07-01", "expires_on": "2027-06-30", "issuer": "Customs Authority XC"},
+    {"id": "D-303", "type": "mining_licence", "holder_name": "Northfield Mining SA", "issued_on": "2023-03-01", "expires_on": "2033-02-28", "issuer": "Mines Directorate XC"},
+    {"id": "D-304", "type": "audit_report", "holder_name": "Northfield Mining SA", "issued_on": "2026-02-02", "issuer": "Example Social Audits"},
+    {"id": "D-305", "type": "environmental_permit", "holder_name": "Northfield Mining SA", "issued_on": "2025-09-09", "expires_on": "2028-09-08", "issuer": "Environment Agency XC"},
+    {"id": "D-306", "type": "sanctions_screening", "holder_name": "Northfield Mining SA", "issued_on": "2026-09-20", "issuer": "Example Screening Service"}
+  ]
+}

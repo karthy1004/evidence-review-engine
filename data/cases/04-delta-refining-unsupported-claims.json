@@ -1,0 +1,15 @@
+{
+  "supplier": {"id": "SUP-004", "legal_name": "Delta Refining Group", "country": "XD", "role": "refiner"},
+  "as_of": "2026-10-01",
+  "answers": {"ORG-1": true, "ORG-2": true, "ORG-3": true, "LEG-1": true, "LEG-2": true,
+              "PPL-1": true, "PPL-2": true, "PPL-3": true, "ENV-1": true, "ENV-2": true,
+              "GOV-1": true, "GOV-2": true},
+  "facts": {"sanctions_match": false, "conflict_affected_area": false},
+  "documents": [
+    {"id": "D-401", "type": "chain_of_custody", "holder_name": "Delta Precious Metals Trading", "issued_on": "2026-04-04", "issuer": "Example Assurance Co"},
+    {"id": "D-402", "type": "export_permit", "holder_name": "Delta Precious Metals Trading", "issued_on": "2026-05-05", "expires_on": "2027-05-04", "issuer": "Customs Authority XD"},
+    {"id": "D-403", "type": "mining_licence", "holder_name": "Delta Refining Group", "issued_on": "2025-02-02", "expires_on": "2026-08-01", "issuer": "Mines Directorate XD"},
+    {"id": "D-404", "type": "audit_report", "holder_name": "Delta Refining Group", "issued_on": "2023-06-30", "issuer": "Example Social Audits"},
+    {"id": "D-406", "type": "sanctions_screening", "holder_name": "Delta Refining Group", "issued_on": "2026-08-30", "issuer": "Example Screening Service"}
+  ]
+}

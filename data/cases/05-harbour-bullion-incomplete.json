@@ -1,0 +1,14 @@
+{
+  "supplier": {"id": "SUP-005", "legal_name": "Harbour Bullion LLC", "country": "XE", "role": "trader"},
+  "as_of": "2026-10-01",
+  "answers": {"ORG-1": true, "ORG-2": true, "ORG-3": true, "LEG-1": true, "LEG-2": true,
+              "PPL-1": true, "PPL-2": true, "PPL-3": true, "ENV-1": true, "ENV-2": true},
+  "facts": {"conflict_affected_area": false},
+  "documents": [
+    {"id": "D-501", "type": "chain_of_custody", "holder_name": "Harbour Bullion LLC", "issued_on": "2026-01-20", "issuer": "Example Assurance Co"},
+    {"id": "D-502", "type": "export_permit", "holder_name": "Harbour Bullion LLC", "issued_on": "2026-03-03", "expires_on": "2027-03-02", "issuer": "Customs Authority XE"},
+    {"id": "D-503", "type": "mining_licence", "holder_name": "Harbour Bullion LLC", "issued_on": "2025-06-06", "expires_on": "2030-06-05", "issuer": "Precious Metals Board XE"},
+    {"id": "D-504", "type": "audit_report", "holder_name": "Harbour Bullion LLC", "issued_on": "2026-05-15", "issuer": "Example Social Audits"},
+    {"id": "D-505", "type": "environmental_permit", "holder_name": "Harbour Bullion LLC", "issued_on": "2026-02-02", "expires_on": "2029-02-01", "issuer": "Environment Agency XE"}
+  ]
+}

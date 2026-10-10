@@ -1,0 +1,217 @@
+# Extraction eval set — 20 synthetic documents (all names, numbers and authorities invented).
+#
+# expected_outcome:
+#   accepted     -> every required field is stated; a good extractor should fill them correctly
+#   needs_human  -> the document genuinely lacks a required field (or is ambiguous); the only
+#                   correct behaviour is to route to a person. Accepting = a silent error.
+# expected: the true field values (null = not stated in the document).
+
+cases:
+  # ---------------------------------------------------------------- structured (8)
+  - id: S01
+    style: structured
+    expected_outcome: accepted
+    text: |
+      MINING LICENCE
+      Holder: Aurum Recyclers Ltd
+      Licence No: ML-2025-0042
+      Issued: 2025-01-10
+      Expires: 2028-01-09
+      Issuing authority: Precious Metals Board XA
+    expected: {document_type: mining_licence, holder_name: Aurum Recyclers Ltd, reference_number: ML-2025-0042, issued_on: 2025-01-10, expires_on: 2028-01-09, issuer: Precious Metals Board XA}
+
+  - id: S02
+    style: structured
+    expected_outcome: accepted
+    text: |
+      EXPORT PERMIT
+      Holder: Sierra Metal Traders
+      Permit No: EXP/XB/77812
+      Issued: 01/05/2025
+      Expires: 30/04/2026
+      Issuer: Customs Authority XB
+    expected: {document_type: export_permit, holder_name: Sierra Metal Traders, reference_number: EXP/XB/77812, issued_on: 2025-05-01, expires_on: 2026-04-30, issuer: Customs Authority XB}
+
+  - id: S03
+    style: structured
+    expected_outcome: accepted
+    text: |
+      Document type: Chain of custody certificate
+      Company: Harbour Bullion LLC
+      Certificate No: COC-5521
+      Issued: 20 January 2026
+      Issuer: Example Assurance Co
+    expected: {document_type: chain_of_custody, holder_name: Harbour Bullion LLC, reference_number: COC-5521, issued_on: 2026-01-20, expires_on: null, issuer: Example Assurance Co}
+
+  - id: S04
+    style: structured
+    expected_outcome: accepted
+    text: |
+      SOCIAL AUDIT REPORT — SUMMARY
+      Holder: Northfield Mining SA
+      Reference: SA-2026-019
+      Issued: 2026-02-02
+      Issued by: Example Social Audits
+    expected: {document_type: audit_report, holder_name: Northfield Mining SA, reference_number: SA-2026-019, issued_on: 2026-02-02, expires_on: null, issuer: Example Social Audits}
+
+  - id: S05
+    style: structured
+    expected_outcome: accepted
+    text: |
+      ENVIRONMENTAL PERMIT
+      Holder: Aurum Recyclers Ltd
+      Permit No: ENV-XA-3310
+      Issued: 1 April 2025
+      Valid until: 31 March 2027
+      Issuing authority: Environment Agency XA
+    expected: {document_type: environmental_permit, holder_name: Aurum Recyclers Ltd, reference_number: ENV-XA-3310, issued_on: 2025-04-01, expires_on: 2027-03-31, issuer: Environment Agency XA}
+
+  - id: S06
+    style: structured
+    expected_outcome: accepted
+    text: |
+      Sanctions screening result
+      Company: Delta Refining Group
+      Reference: SCR-88213
+      Date of issue: 2026-08-30
+      Issued by: Example Screening Service
+      Result: no matches
+    expected: {document_type: sanctions_screening, holder_name: Delta Refining Group, reference_number: SCR-88213, issued_on: 2026-08-30, expires_on: null, issuer: Example Screening Service}
+
+  - id: S07
+    style: structured
+    expected_outcome: accepted
+    text: |
+      MINING LICENCE
+      Licence holder: Kestrel Gold Cooperative
+      Licence No: KGC/ML/0091
+      Issue date: 15/09/2024
+      Expiry date: 14/09/2029
+      Authority: Mines Directorate XF
+    expected: {document_type: mining_licence, holder_name: Kestrel Gold Cooperative, reference_number: KGC/ML/0091, issued_on: 2024-09-15, expires_on: 2029-09-14, issuer: Mines Directorate XF}
+
+  - id: S08
+    style: structured
+    expected_outcome: accepted
+    text: |
+      EXPORT PERMIT
+      Holder: Lumen Metals Ltd
+      Permit No: LM-EX-2026-4
+      Issued: March 3, 2026
+      Expires: March 2, 2027
+      Issuer: Customs Authority XG
+    expected: {document_type: export_permit, holder_name: Lumen Metals Ltd, reference_number: LM-EX-2026-4, issued_on: 2026-03-03, expires_on: 2027-03-02, issuer: Customs Authority XG}
+
+  # ---------------------------------------------------------------- prose (6)
+  - id: P01
+    style: prose
+    expected_outcome: accepted
+    text: |
+      This is to certify that Aurum Recyclers Ltd has been granted mining licence
+      ML-2025-0042 by the Precious Metals Board XA on 10 January 2025. The licence
+      remains in force until 9 January 2028 unless revoked.
+    expected: {document_type: mining_licence, holder_name: Aurum Recyclers Ltd, reference_number: ML-2025-0042, issued_on: 2025-01-10, expires_on: 2028-01-09, issuer: Precious Metals Board XA}
+
+  - id: P02
+    style: prose
+    expected_outcome: accepted
+    text: |
+      Customs Authority XB hereby authorises Sierra Metal Traders to export refined
+      gold under permit EXP/XB/90120. Issued on 2 June 2026; this permit expires on
+      1 June 2027.
+    expected: {document_type: export_permit, holder_name: Sierra Metal Traders, reference_number: EXP/XB/90120, issued_on: 2026-06-02, expires_on: 2027-06-01, issuer: Customs Authority XB}
+
+  - id: P03
+    style: prose
+    expected_outcome: accepted
+    text: |
+      Example Social Audits conducted an independent social audit of Kestrel Gold
+      Cooperative between 3 and 7 March 2026. This report (ref. ESA-26-114) was
+      issued on 28 March 2026. No forced or child labour was observed.
+    expected: {document_type: audit_report, holder_name: Kestrel Gold Cooperative, reference_number: ESA-26-114, issued_on: 2026-03-28, expires_on: null, issuer: Example Social Audits}
+
+  - id: P04
+    style: prose
+    expected_outcome: accepted
+    text: |
+      We, Example Assurance Co, confirm that we reviewed the chain of custody
+      records of Lumen Metals Ltd for all lots shipped in 2025 and found them
+      complete. Certificate COC-7730, dated 12 February 2026.
+    expected: {document_type: chain_of_custody, holder_name: Lumen Metals Ltd, reference_number: COC-7730, issued_on: 2026-02-12, expires_on: null, issuer: Example Assurance Co}
+
+  - id: P05
+    style: prose
+    expected_outcome: accepted
+    text: |
+      Environment Agency XC grants Northfield Mining SA permission to operate its
+      processing site under environmental permit XC-ENV-0457, effective 9 September
+      2025 and valid for three years, to 8 September 2028.
+    expected: {document_type: environmental_permit, holder_name: Northfield Mining SA, reference_number: XC-ENV-0457, issued_on: 2025-09-09, expires_on: 2028-09-08, issuer: Environment Agency XC}
+
+  - id: P06
+    style: prose
+    expected_outcome: accepted
+    text: |
+      On 15 September 2026, Example Screening Service screened the owners and
+      directors of Harbour Bullion LLC against consolidated sanctions lists
+      (job SCR-90311). No matches were found.
+    expected: {document_type: sanctions_screening, holder_name: Harbour Bullion LLC, reference_number: SCR-90311, issued_on: 2026-09-15, expires_on: null, issuer: Example Screening Service}
+
+  # ---------------------------------------------------------------- traps (6): must NOT be accepted
+  - id: T01
+    style: trap-missing-issuer
+    expected_outcome: needs_human
+    text: |
+      MINING LICENCE
+      Holder: Ridgeway Minerals
+      Licence No: RM-001
+      Issued: 2025-05-05
+      Expires: 2030-05-04
+    expected: {document_type: mining_licence, holder_name: Ridgeway Minerals, reference_number: RM-001, issued_on: 2025-05-05, expires_on: 2030-05-04, issuer: null}
+
+  - id: T02
+    style: trap-missing-date
+    expected_outcome: needs_human
+    text: |
+      Example Social Audits has completed its audit of Ridgeway Minerals.
+      Reference ESA-25-990. Findings are summarised in the annex.
+    expected: {document_type: audit_report, holder_name: Ridgeway Minerals, reference_number: ESA-25-990, issued_on: null, expires_on: null, issuer: Example Social Audits}
+
+  - id: T03
+    style: trap-not-evidence
+    expected_outcome: needs_human
+    text: |
+      Dear partner, we confirm that all our permits are in order and we follow
+      responsible sourcing practices at all times. Kind regards, Ridgeway Minerals.
+    expected: {document_type: null, holder_name: Ridgeway Minerals, reference_number: null, issued_on: null, expires_on: null, issuer: null}
+
+  - id: T04
+    style: trap-unreadable-date
+    expected_outcome: needs_human
+    text: |
+      EXPORT PERMIT
+      Holder: Ridgeway Minerals
+      Permit No: RM-EXP-77
+      Issued: the first week of spring
+      Issuer: Customs Authority XH
+    expected: {document_type: export_permit, holder_name: Ridgeway Minerals, reference_number: RM-EXP-77, issued_on: null, expires_on: null, issuer: Customs Authority XH}
+
+  - id: T05
+    style: trap-inconsistent-dates
+    expected_outcome: needs_human
+    text: |
+      ENVIRONMENTAL PERMIT
+      Holder: Ridgeway Minerals
+      Permit No: RM-ENV-3
+      Issued: 2026-06-01
+      Expires: 2024-06-01
+      Issuer: Environment Agency XH
+    expected: {document_type: environmental_permit, holder_name: Ridgeway Minerals, reference_number: RM-ENV-3, issued_on: 2026-06-01, expires_on: 2024-06-01, issuer: Environment Agency XH}
+
+  - id: T06
+    style: trap-missing-holder
+    expected_outcome: needs_human
+    text: |
+      Sanctions screening completed by Example Screening Service on 2026-09-01.
+      Reference SCR-11111. Result: no matches.
+    expected: {document_type: sanctions_screening, holder_name: null, reference_number: SCR-11111, issued_on: 2026-09-01, expires_on: null, issuer: Example Screening Service}

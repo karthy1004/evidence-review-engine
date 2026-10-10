@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -e ".[dev]"
+      - name: Lint
+        run: ruff check src tests evals && ruff format --check src tests evals
+      - name: Type check (strict)
+        run: mypy
+      - name: Tests + branch coverage (fails under 90%)
+        run: pytest --cov --cov-report=term-missing --cov-fail-under=90
+      - name: Baseline extraction eval (regression gate is in tests/test_evals.py)
+        run: python evals/run_evals.py
+      - name: Demo runs end to end
+        run: python -m evidence_review demo
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: gitleaks (full history)
+        run: docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:v8.18.4 detect --source /repo --redact -v
+
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress './**/*.md'
+          fail: true
