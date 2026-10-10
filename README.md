@@ -2,7 +2,7 @@
 
 **Explainable due-diligence scoring for supply-chain participants.** Versioned rules, evidence that has to actually back each claim, a reviewer workflow with explicit states, a tamper-evident audit log, and an optional LLM step that is never trusted without validation.
 
-[![CI](https://github.com/karthy1004/evidence-review-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/karthy1004/evidence-review-engine/actions/workflows/ci.yml)
+[![CI](https://github.com/karthikbhumireddy/evidence-review-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/karthikbhumireddy/evidence-review-engine/actions/workflows/ci.yml)
 
 > [!IMPORTANT]
 > **Everything here is synthetic and illustrative.** The rulebook, suppliers, documents and countries (`XA`–`XH`) are invented. The rulebook is not OECD, LBMA, RMI or any regulator's standard, nor any employer's methodology. A GO from this engine is a recommendation to a human reviewer, not a certification.
@@ -23,7 +23,7 @@ This engine is a working answer to those four problems. I built it after working
 ## What it does: 60-second demo
 
 ```bash
-git clone https://github.com/karthy1004/evidence-review-engine && cd evidence-review-engine
+git clone https://github.com/karthikbhumireddy/evidence-review-engine && cd evidence-review-engine
 python -m venv .venv && . .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
 python -m evidence_review demo
@@ -182,4 +182,4 @@ The Claude adapter is excluded from coverage because CI has no key. Its code pat
 
 ## License
 
-MIT. See [LICENSE](LICENSE). Built by [Karthik Bhumireddy](https://github.com/karthy1004) with Claude Code as an AI pair programmer. The problem comes from product work on responsible-gold due diligence. Every number in this README comes from a real run of the code in this repository.
+MIT. See [LICENSE](LICENSE). Built by [Karthik Bhumireddy](https://github.com/karthikbhumireddy) with Claude Code as an AI pair programmer. The problem comes from product work on responsible-gold due diligence. Every number in this README comes from a real run of the code in this repository.
