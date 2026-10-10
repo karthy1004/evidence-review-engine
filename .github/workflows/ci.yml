@@ -31,6 +31,8 @@ jobs:
         run: python evals/run_evals.py
       - name: Demo runs end to end
         run: python -m evidence_review demo
+      - name: Dependency vulnerability audit
+        run: pip install pip-audit && pip-audit --skip-editable
 
   secrets:
     runs-on: ubuntu-latest
