@@ -130,6 +130,19 @@ Reading this honestly:
 
   The LLM is worth adopting only if it converts the 6 unnecessary routes to correct accepts **and keeps silent errors at 0**. The grounding check is there to make that second condition hold.
 
+## Product notes: who it's for, how I'd measure it, what I cut
+
+| | |
+|---|---|
+| **Primary user** | A compliance analyst clearing supplier onboarding cases. Secondary users: the head of compliance who owns the rulebook, and the supplier who has to produce evidence. |
+| **Job to be done** | Reach a defensible GO / REVIEW / NO-GO faster, and be able to show an auditor exactly why. |
+| **North-star metric (proposed)** | Median time from complete submission to decision. |
+| **Quality and guardrail metrics (proposed)** | Reviewer override rate and its reasons: a rising rate means the rulebook is wrong, not the reviewers. Share of cases needing a request-for-information loop. Extraction silent errors (must stay at 0) against automation rate. Hard-stop cases approved (must be 0, enforced in code). |
+| **Deliberately cut from v0.1** | UI, persistence, multi-tenant rulebooks. The bet is that explainability and evidence validity are the hard part; screens are not. |
+| **Biggest open risk** | Rulebook quality. A clean engine with a bad rulebook produces confident, wrong answers, so rulebook changes should go through the same review as code. |
+
+> These metrics are proposals for a production pilot. Nothing here has been measured on real cases.
+
 ## Technology decisions
 
 | Choice | Why | Alternatives considered |
